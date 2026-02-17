@@ -12,8 +12,8 @@ from Team t
 where CDID = 3;
 
 -- Join query (selecting all teams and their conference/division)
-select t.tname, t.tcityState, c.conference, c.division
+select t.teamid, t.tname, t.tcityState, c.conference, c.division
 from Team t 
 inner join ConferenceDivision c on c.cdid=t.cdid
-order by t.tname;
+order by teamid;
 
