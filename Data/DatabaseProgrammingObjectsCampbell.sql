@@ -49,6 +49,8 @@ execute procGetTeamsByConferenceDivision
 
 ------------------------------------------------------------
 
+--find all teams in my team's division (user optionally provides team name)
+--show tnmae, conf. and div.
 
 
 
