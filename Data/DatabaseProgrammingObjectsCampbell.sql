@@ -18,6 +18,39 @@ inner join ConferenceDivision c on c.cdid=t.cdid
 order by teamid;
 
 
+------------------------------------------------------------
+
+--class query--
+
+go
+
+create or alter procedure procGetTeamsByConferenceDivision
+(
+    @Conference NVARCHAR(50) = NULL,
+    @Division NVARCHAR(50) = NULL
+)
+AS
+BEGIN
+    select tname, Tcolors, Conference, Division
+    from team T
+    inner join ConferenceDivision CD 
+        on CD.CDID = T.CDID
+    where Conference = isnull(@Conference, Conference) 
+        and Division = isnull(@Division, Division)
+END
+
+/*
+
+execute procGetTeamsByConferenceDivision
+    @Conference = 'AFC',
+    @Division = 'North';
+
+*/
+
+------------------------------------------------------------
+
+
+
 
 
 
