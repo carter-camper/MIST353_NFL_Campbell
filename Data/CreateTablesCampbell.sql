@@ -1,7 +1,14 @@
 -- Create a database for NFL App
 
 
+--use MIST353_NFL_Campbell;
+
+--use [mist353-nfl-campbell];
+
+use [mist353-nfl-campbell];
+
 use MIST353_NFL_Campbell;
+
 
 
 

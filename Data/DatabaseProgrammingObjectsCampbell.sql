@@ -17,3 +17,7 @@ from Team t
 inner join ConferenceDivision c on c.cdid=t.cdid
 order by teamid;
 
+
+
+
+
