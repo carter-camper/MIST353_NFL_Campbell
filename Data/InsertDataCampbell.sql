@@ -1,9 +1,8 @@
 --Insert all ConferenceDivison Data (8 Rows)
 --Insert team data for AFC North (4 Rows)
 
-use [master];
+use MIST353_NFL_Campbell;
 
-select * from ConferenceDivision;
 
 
 insert into ConferenceDivision

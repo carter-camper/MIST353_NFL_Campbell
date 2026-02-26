@@ -51,6 +51,68 @@ execute procGetTeamsByConferenceDivision
 
 --find all teams in my team's division (user optionally provides team name)
 --show tnmae, conf. and div.
+go
+
+create or alter procedure procGeTamsInMyDivision
+(
+    @tname NVARCHAR(50) = NULL
+)
+AS
+BEGIN
+    select tname, conference, division
+    from team t
+    inner join ConferenceDivision cd 
+        on cd.cdid = t.cdid
+    where Conference = isnull(@tname, tname) 
+        and Division = 1;
+END
+---------------------------------------------------------------
+
+GO
+
+create or alter procedure FindAllTeamsInMyDivision
+(
+    @tname NVARCHAR(50) = NULL
+)
+
+AS
+
+BEGIN
+
+DECLARE @myTeamName NVARCHAR(50) = 'Steelers';
+
+select OtherTeam.Tname
+from Team MyTeam inner join Team OtherTeam
+    on MyTeam.CDID = OtherTeam.CDID
+where MyTeam.tname = @myTeamName AND
+    OtherTeam.tname != @myTeamName;
+
+END
+
+------------------------------------------
+
+
+--add the conf div
+GO
+
+create or alter procedure FindAllTeamsInMyDivision
+(
+    @tname NVARCHAR(50) = NULL
+)
+
+AS
+
+DECLARE @myTeamName NVARCHAR(50) = 'Steelers';
+
+select OtherTeam.Tname
+from Team MyTeam inner join Team OtherTeam
+    on MyTeam.CDID = OtherTeam.CDID
+where MyTeam.tname = @myTeamName AND
+    OtherTeam.tname != @myTeamName;
+
+
+
+
 
 
 
