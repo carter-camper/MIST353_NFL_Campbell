@@ -41,6 +41,9 @@ alter table ConferenceDivision
     CHECK CONSTRAINT CK_ConferenceNames;    
 */
 
+--test
+
+
 
 --Create Team table
 
