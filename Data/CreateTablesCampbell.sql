@@ -9,7 +9,9 @@
 
 --use MIST353_NFL_Campbell;
 
-use master;
+--use MIST353_NFL_Campbell;
+
+--use master;
 
 
 

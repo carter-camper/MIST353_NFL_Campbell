@@ -24,7 +24,7 @@ order by teamid;
 
 go
 
-create or alter procedure procGetTeamsByConferenceDivision
+create or alter procedure GetTeamsByConferenceDivision
 (
     @Conference NVARCHAR(50) = NULL,
     @Division NVARCHAR(50) = NULL
@@ -53,7 +53,7 @@ execute procGetTeamsByConferenceDivision
 --show tnmae, conf. and div.
 go
 
-create or alter procedure procGeTamsInMyDivision
+create or alter procedure GeTamsInMyDivision
 (
     @tname NVARCHAR(50) = NULL
 )
@@ -66,6 +66,8 @@ BEGIN
     where Conference = isnull(@tname, tname) 
         and Division = 1;
 END
+
+
 ----------------------------------------------------------------------------------------------
 
 GO
