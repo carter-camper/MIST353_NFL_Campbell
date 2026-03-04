@@ -20,11 +20,16 @@ order by teamid;
 
 ----------------------------------------------------------------------------------------------
 
---class query--
+/*
+procGetTeamsByConferenceDivision
+
+Provide conf. and div. , then recieve all teams in respective conf. and div.
+If null, recieve all teams
+*/
 
 go
 
-create or alter procedure GetTeamsByConferenceDivision
+create or alter procedure [dbo].[procGetTeamsByConferenceDivision]
 (
     @Conference NVARCHAR(50) = NULL,
     @Division NVARCHAR(50) = NULL
@@ -39,40 +44,16 @@ BEGIN
         and Division = isnull(@Division, Division)
 END
 
-/*
-
-execute procGetTeamsByConferenceDivision
-    @Conference = 'AFC',
-    @Division = 'North';
-
-*/
-
-----------------------------------------------------------------------------------------------
-
---find all teams in my team's division (user optionally provides team name)
---show tnmae, conf. and div.
-go
-
-create or alter procedure GeTamsInMyDivision
-(
-    @tname NVARCHAR(50) = NULL
-)
-AS
-BEGIN
-    select tname, conference, division
-    from team t
-    inner join ConferenceDivision cd 
-        on cd.cdid = t.cdid
-    where Conference = isnull(@tname, tname) 
-        and Division = 1;
-END
+-----------------------------------------------------
 
 
-----------------------------------------------------------------------------------------------
+--procFindAllTeamsInMyDivisionAndCD
+
+--Provide team name, then receive all teams in the same division and conference (minus specified team)
 
 GO
 
-create or alter procedure FindAllTeamsInMyDivision
+create or alter procedure [dbo].[procFindAllTeamsInMyDivisionAndCD]
 (
     @tname NVARCHAR(50) = NULL
 )
@@ -80,33 +61,6 @@ create or alter procedure FindAllTeamsInMyDivision
 AS
 
 BEGIN
-
-DECLARE @myTeamName NVARCHAR(50) = 'Steelers';
-
-select OtherTeam.Tname
-from Team MyTeam inner join Team OtherTeam
-    on MyTeam.CDID = OtherTeam.CDID
-where MyTeam.tname = @myTeamName AND
-    OtherTeam.tname != @myTeamName;
-
-END
-
-
-----------------------------------------------------------------------------------------------
---add the conf div
-GO
-
-create or alter procedure FindAllTeamsInMyDivisionAndCD
-(
-    @tname NVARCHAR(50) = NULL
-)
-
-AS
-
-BEGIN
-
-
-DECLARE @myTeamName NVARCHAR(50) = 'Steelers';
 
 select OtherTeam.Tname, OtherCD.Conference, OtherCD.Division
 from Team MyTeam 
@@ -116,12 +70,10 @@ inner join ConferenceDivision MyCD
     on MyCD.CDID = MyTeam.CDID
 inner join ConferenceDivision OtherCD 
     on OtherCD.CDID = OtherTeam.CDID
-where MyTeam.tname = @myTeamName AND
-    OtherTeam.tname != @myTeamName;
+where MyTeam.tname = @tname AND
+    OtherTeam.tname != @tname;
 
 END
-
-----------------------------------------------------------------------------------------------
 
 
 
