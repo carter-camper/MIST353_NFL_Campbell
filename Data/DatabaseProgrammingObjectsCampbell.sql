@@ -47,13 +47,13 @@ END
 -----------------------------------------------------
 
 
---procFindAllTeamsInMyDivisionAndCD
+--procFindAllTeamsInMyConferenceDivision
 
 --Provide team name, then receive all teams in the same division and conference (minus specified team)
 
 GO
 
-create or alter procedure [dbo].[procFindAllTeamsInMyDivisionAndCD]
+create or alter procedure [dbo].[procFindAllTeamsInMyConferenceDivision]
 (
     @tname NVARCHAR(50) = NULL
 )
@@ -74,6 +74,7 @@ where MyTeam.tname = @tname AND
     OtherTeam.tname != @tname;
 
 END
+
 
 
 
