@@ -4,6 +4,18 @@ def get_teams_by_conference_division(conference, division):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("EXEC procGetTeamsByConferenceDivision @Conference = ?, @Division = ?", (conference, division))
-    teams = cursor.fetchall()
+    rows = cursor.fetchall()
     conn.close()
-    return teams
+
+    # convert rows to a list of dictionaries
+    results = [
+        {
+            "TeamName": row.tname,
+            "Conference": row.Conference,
+            "Division": row.Division,
+            "TeamColors": row.Tcolors
+        }
+        for row in rows
+    ]
+
+    return {"data": results}
