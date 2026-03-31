@@ -19,7 +19,7 @@ def get_db_connection():
     # )
 
     conn = pyodbc.connect(
-        f"DRIVER={{ODBC Driver 18 for SQL Server}};"
+        f"DRIVER=/opt/homebrew/lib/libmsodbcsql.18.dylib;"
         f"SERVER={server};"
         f"DATABASE={database};"
         f"UID={username};"
