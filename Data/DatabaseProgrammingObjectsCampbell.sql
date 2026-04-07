@@ -75,8 +75,19 @@ where MyTeam.tname = @tname AND
 
 END
 
+GO
 
+create or alter procedure procValidateUser
+(
+  @Email NVARCHAR(100),
+  @PasswordHash NVARCHAR(200)
+)
+AS
+BEGIN
+  select AppUserID, Firstname + ' ' + Lastname as FullName, UserRole
+  from AppUser
+  where Email = @Email and 
+  PasswordHash = Convert(VARBINARY(200), @PasswordHash, 1);
+END
 
-
-
-
+execute [dbo].[procValidateUser] @Email = 'tom.brady@example.com', @PasswordHash = '0x01';
