@@ -21,6 +21,5 @@ def get_teams_by_conference_division(
         for row in rows
     ]
 
-#test
 
     return {"data": results}
