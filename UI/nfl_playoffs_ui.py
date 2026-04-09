@@ -32,7 +32,6 @@ with st.sidebar:
 if api_endpoint == "Get Teams by Conference and Division":
    get_teams_by_conference_division_ui()
 
-
 elif api_endpoint == "Get Teams in Same Conference and Division as Specified Team":
    get_teams_in_same_conference_division_as_specified_team_ui()
 

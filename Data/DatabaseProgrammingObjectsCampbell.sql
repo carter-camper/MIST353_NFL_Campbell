@@ -75,6 +75,8 @@ where MyTeam.tname = @tname AND
 
 END
 
+-- validate user proc
+
 GO
 
 create or alter procedure procValidateUser
@@ -92,6 +94,8 @@ END
 
 -- execute [dbo].[procValidateUser] @Email = 'tom.brady@example.com', @PasswordHash = '0x01';
 
+
+-- Get teams for specified fan proc
 
 GO
 
@@ -115,6 +119,7 @@ END;
 select * from NFLFan;
 -- execute procGetTeamsForSpecifiedFan @NFLFanID = 1
 
+-- extra teams by color proc 
 
 go 
 
