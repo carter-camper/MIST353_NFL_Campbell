@@ -3,6 +3,7 @@ from get_teams_by_conference_division_ui import get_teams_by_conference_division
 from get_teams_in_same_conference_division_as_specified_team_ui import get_teams_in_same_conference_division_as_specified_team_ui
 from validate_user_ui import validate_user_ui
 from get_teams_for_specified_fan_ui import get_teams_for_specified_fan_ui
+from get_teams_by_colors_ui import get_teams_by_colors_ui
 
 #st.image("vintage_nfl.png", width=300)
 col1, col2, col3 = st.columns([1, 2, 1])
@@ -20,7 +21,12 @@ with st.sidebar:
   st.title("NFL Playoff Functionalities")
   api_endpoint = st.selectbox(
     "Select a functionality:",
-    ["Get Teams by Conference and Division", "Get Teams in Same Conference and Division as Specified Team", "Validate User", "Get Teams for Specified Fan"]
+    ["Get Teams by Conference and Division",
+      "Get Teams in Same Conference and Division as Specified Team",
+      "Validate User",
+      "Get Teams for Specified Fan",
+      "Get Teams by Color"
+      ]
   )
 
 if api_endpoint == "Get Teams by Conference and Division":
@@ -35,3 +41,6 @@ elif api_endpoint == "Validate User":
 
 elif api_endpoint == "Get Teams for Specified Fan":
    get_teams_for_specified_fan_ui()
+
+elif api_endpoint == "Get Teams by Color":
+   get_teams_by_colors_ui()

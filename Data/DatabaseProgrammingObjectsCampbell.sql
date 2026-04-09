@@ -114,3 +114,19 @@ END;
 
 select * from NFLFan;
 -- execute procGetTeamsForSpecifiedFan @NFLFanID = 1
+
+
+go 
+
+create or alter procedure procGetTeamsByColor
+(
+    @TeamColor NVARCHAR(50)
+)
+as
+BEGIN
+    select t.tname as Team_Name, t.tcolors as Colors        -- renaming tables can help the name calling issue on api side
+        from Team t
+    where t.tcolors like '%'+@TeamColor+'%'
+END
+
+-- execute procGetTeamsByColor @TeamColor = 'Blue'
