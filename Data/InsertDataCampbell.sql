@@ -117,4 +117,3 @@ select * from NFLFan;
 select * from NFLAdmin;
 select * from AppUser;
 
-

@@ -90,4 +90,27 @@ BEGIN
   PasswordHash = Convert(VARBINARY(200), @PasswordHash, 1);
 END
 
-execute [dbo].[procValidateUser] @Email = 'tom.brady@example.com', @PasswordHash = '0x01';
+-- execute [dbo].[procValidateUser] @Email = 'tom.brady@example.com', @PasswordHash = '0x01';
+
+
+GO
+
+create or alter procedure procGetTeamsForSpecifiedFan
+(
+  @NFLFanID INT
+)
+AS
+BEGIN
+    select T.Tname, CD.Conference, CD.Division, T.Tcolors
+    from NFLFan F
+            inner join FanTeam FT
+            on F.NFLFanID = FT.NFLFanID
+            inner join Team T
+            on FT.TeamID = T.TeamID
+            inner join ConferenceDivision CD
+            on T.CDID = CD.CDID
+    where F.NFLFanID = @NFLFanID;
+END;
+
+select * from NFLFan;
+-- execute procGetTeamsForSpecifiedFan @NFLFanID = 1
