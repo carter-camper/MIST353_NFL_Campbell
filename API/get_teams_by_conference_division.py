@@ -20,6 +20,6 @@ def get_teams_by_conference_division(
         }
         for row in rows
     ]
-#tes
+#test
 
     return {"data": results}
