@@ -15,7 +15,10 @@ def get_teams_by_colors_ui():
             df = fetch_data("get_teams_by_color/", input_params)
 
             if df is not None and not df.empty:
-                st.subheader(f"Teams with {color} in their colors:")
+                dark_colors = {"black", "navy", "darkblue", "darkgreen", "maroon", "purple", "indigo", "darkred", "brown"}
+                text_color = "white" if color.strip().lower() in dark_colors else "black"
+
+                st.markdown(f"### Teams with <span style='background-color:{color}; color: {text_color}; padding: 2px 6px; border-radius: 4px;'>{color}</span> in their colors:", unsafe_allow_html=True)
                 st.dataframe(df, use_container_width=True, hide_index=True)
             else:
                 st.info(f"No teams found with {color} in their colors")
