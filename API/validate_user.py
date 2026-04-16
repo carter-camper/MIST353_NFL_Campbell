@@ -1,21 +1,22 @@
 from get_db_connection import get_db_connection
+import pymysql
 
 def validate_user(
        email: str,
        password_hash: str
    ):
     conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("{call procValidateUser(?, ?)}", (email, password_hash))
+    cursor = conn.cursor(as_dict=True)
+    cursor.callproc("procValidateUser", (email, password_hash))
     rows = cursor.fetchall()
     conn.close()
 
     # convert rows to a list of dictionaries
     results = [
         {
-            "AppUserID": row.AppUserID,
-            "FullName": row.FullName,
-            "UserRole": row.UserRole
+            "AppUserID": row["AppUserID"],
+            "FullName": row["FullName"],
+            "UserRole": row["UserRole"]
         }
         for row in rows
     ]

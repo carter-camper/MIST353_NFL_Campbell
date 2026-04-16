@@ -1,20 +1,5 @@
 -- Create a database for NFL App
 
-
---use MIST353_NFL_Campbell;
-
---use [mist353-nfl-campbell];
-
---use [mist353-nfl-campbell];
-
---use MIST353_NFL_Campbell;
-
---use MIST353_NFL_Campbell;
-
---use master;
-
---no
-
 if (OBJECT_ID('FanTeam') is not null)
     drop table FanTeam;
 if (OBJECT_ID('NFLFan') is not null)

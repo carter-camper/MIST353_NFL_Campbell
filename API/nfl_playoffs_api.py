@@ -4,6 +4,7 @@ from get_teams_in_same_conference_division_as_specified_team import get_teams_in
 from validate_user import validate_user
 from get_teams_for_specified_fan import get_teams_for_specified_fan
 from get_teams_by_color import get_teams_by_color
+import pymssql
 app = FastAPI()
 
 
