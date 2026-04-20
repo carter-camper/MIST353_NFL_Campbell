@@ -1,5 +1,5 @@
 from get_db_connection import get_db_connection
-import pymysql
+
 
 def get_teams_by_conference_division(
        conference: str = None,

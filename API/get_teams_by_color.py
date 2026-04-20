@@ -1,5 +1,4 @@
 from get_db_connection import get_db_connection
-import pymysql
 
 def get_teams_by_color(
       color: str
