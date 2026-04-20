@@ -105,7 +105,7 @@ create or alter procedure procGetTeamsForSpecifiedFan
 )
 AS
 BEGIN
-    select T.Tname, CD.Conference, CD.Division, T.Tcolors
+    select T.Tname, CD.Conference, CD.Division, T.Tcolors, FT.PrimaryTeam
     from NFLFan F
             inner join FanTeam FT
             on F.NFLFanID = FT.NFLFanID
