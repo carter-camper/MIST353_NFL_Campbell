@@ -18,7 +18,6 @@ def get_db_connection():
         database=database,
         port=1433,
         tds_version='7.4',
-        timeout=30,
     )
     # ODBC driver 18 for SQL server can only be used in Synchronous mode
     # conn = pyodbc.connect(
