@@ -1,10 +1,12 @@
 from get_db_connection import get_db_connection
+import pymssql
 def get_teams_for_specified_fan(
     NFLFanID: int
 ):
     conn = get_db_connection()
     cursor = conn.cursor(as_dict=True)
-    cursor.callproc("procGetTeamsForSpecifiedFan", (NFLFanID,))
+    #cursor.callproc("procGetTeamsForSpecifiedFan", (NFLFanID,))
+    cursor.execute("exec procGetTeamsForSpecifiedFan %s", (NFLFanID,))
     rows = cursor.fetchall()
     conn.close()
 

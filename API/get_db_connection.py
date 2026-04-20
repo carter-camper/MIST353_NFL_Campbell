@@ -1,6 +1,5 @@
 import os
 from socket import timeout 
-#import pyodbc
 import pymssql
 from dotenv import load_dotenv
 
