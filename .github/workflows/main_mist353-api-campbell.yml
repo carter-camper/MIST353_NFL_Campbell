@@ -10,7 +10,6 @@ on:
       - main
     paths:
       - 'API/**'
-      - 'requirements.txt'
   workflow_dispatch:
 
 jobs:
@@ -42,8 +41,6 @@ jobs:
           name: python-app
           path: |
             API/
-            requirements.txt
-            startup.sh
             !.venv/
             !antenv/
 
