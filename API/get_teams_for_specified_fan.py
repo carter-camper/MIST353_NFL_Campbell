@@ -16,7 +16,8 @@ def get_teams_for_specified_fan(
             "TeamName": row["Tname"],
             "Conference": row["Conference"],
             "Division": row["Division"],
-            "TeamColors": row["Tcolors"]
+            "TeamColors": row["Tcolors"],
+            "PrimaryTeam": bool(row["PrimaryTeam"])
         }
         for row in rows
     ]

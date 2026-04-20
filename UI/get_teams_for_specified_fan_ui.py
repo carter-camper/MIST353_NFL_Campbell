@@ -18,6 +18,13 @@ def get_teams_for_specified_fan_ui():
 
       if df is not None and not df.empty:
             st.subheader(f"User {nflfanid}'s Teams:")
-            st.dataframe(df, use_container_width=True, hide_index=True)
+            st.dataframe(
+                df,
+                use_container_width=True,
+                hide_index=True,
+                column_config={
+                    "PrimaryTeam": st.column_config.CheckboxColumn("Primary Team")
+                }
+            )
       else:
             st.info(f"No teams found for the specified user.")
