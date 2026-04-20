@@ -2,5 +2,5 @@ gunicorn
 fastapi
 uvicorn[standard]
 python-dotenv
-pymssql # discuss why
+pymysql # discuss why
 pyodbc # and why not
