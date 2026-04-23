@@ -18,7 +18,7 @@ inner join ConferenceDivision c on c.cdid=t.cdid
 order by teamid;
 
 
-----------------------------------------------------------------------------------------------
+--=============================================================
 
 /*
 procGetTeamsByConferenceDivision
@@ -209,33 +209,81 @@ begin
     values (@NFLAdminID, @GameID, @ChangeType, @ChangeDescription);
 END
 
+GO
+
+create or alter procedure procEnterScores
+(
+    @GameID INT,
+    @HomeTeamScore INT,
+    @AwayTeamScore INT,
+    @NFLAdminID INT
+)
+AS
+BEGIN
+    -- store NFLAdminID in context so trigger can access it when inserting into AdminChangesTracker
+    DECLARE @context VARBINARY(128) = cast(@NFLAdminID as VARBINARY(128));
+    set context_info @context;
+
+    update Game
+    set HomeTeamScore = @HomeTeamScore, AwayTeamScore = @AwayTeamScore,
+        WinningTeamID = case 
+                        when @HomeTeamScore > @AwayTeamScore then HomeTeamID
+                        when @AwayTeamScore > @HomeTeamScore then AwayTeamID
+                        else null end
+    where GameID = @GameID;
+END
+
+GO
+
+
+create or alter trigger trgChangesOnEnteringScores
+on Game
+after UPDATE
+AS
+BEGIN
+    -- Trigger logic to capture changes to scores
+    DECLARE @GameID INT;
+    DECLARE @ChangeType NVARCHAR(50);
+    DECLARE @HomeTeamScore INT;
+    DECLARE @AwayTeamScore INT;
+    DECLARE @NFLAdminID INT;
+    DECLARE @AdminFullName NVARCHAR(100);
+    DECLARE @ChangeDescription NVARCHAR(500);
+
+    set @NFLAdminID = convert(int, convert(binary(4), context_info()));
+
+    -- Get the values from the inserted and deleted tables
+    SELECT @GameID = i.GameID, @HomeTeamScore = i.HomeTeamScore, @AwayTeamScore = i.AwayTeamScore
+    FROM inserted i
+    
+
+    -- Get the admin's full name from the context
+    SELECT @AdminFullName = Firstname + ' ' + Lastname
+    FROM AppUser
+    WHERE AppUserID = @NFLAdminID;
+
+    -- Insert a record into the AdminChangesTracker table
+    set @ChangeType = 'Update';
+    set @ChangeDescription = @AdminFullName + ' updated the score for GameID ' + CAST(@GameID AS NVARCHAR(50)) + ': ' + CAST(@HomeTeamScore AS NVARCHAR(50)) + ' - ' + CAST(@AwayTeamScore AS NVARCHAR(50)) + '.';
+
+    INSERT INTO AdminChangesTracker (NFLAdminID, GameID, ChangeType, ChangeDescription)
+    VALUES (@NFLAdminID, @GameID, @ChangeType, @ChangeDescription);
+END
+
+
+GO
+
+
 /*
-
-GameRound: 'Wild Card', HomeTeamID: 22, AwayTeamID: 30, GameDate: '2026-01-10', GameStartTime: '16:30', StadiumID: 22, 
-NFLAdminID for scheduling: 5 (Bill Belichick)
-
-execute procScheduleGame 
-    @HomeTeamID = 22, 
-    @AwayTeamID = 30, 
-    @GameRound = 'Wild Card', 
-    @GameDate = '2026-01-10', 
-    @GameStartTime = '16:30', 
-    @StadiumID = 22, 
-    @NFLAdminID = 5;
-
-GameRound: 'Wild Card', HomeTeamID: 17, AwayTeamID: 19, GameDate: '2026-01-10', GameStartTime: '20:00', StadiumID: 17,
-NFLAdminID for scheduling: 6 (Sean McVay)
-
-execute procScheduleGame 
-    @HomeTeamID = 17, 
-    @AwayTeamID = 19, 
-    @GameRound = 'Wild Card', 
-    @GameDate = '2026-01-10', 
-    @GameStartTime = '20:00', 
-    @StadiumID = 17, 
-    @NFLAdminID = 6;
-
-select * from Game;
-select * from AdminChangesTracker;
+execute procEnterScores
+    @GameID = 2, 
+    @HomeTeamScore = 7,
+    @AwayTeamScore = 10,
+    @NFLAdminID = 6; -- Sean McVay
 
 */
+
+-- select * from AdminChangesTracker;
+-- select * from Game;
+
+GO

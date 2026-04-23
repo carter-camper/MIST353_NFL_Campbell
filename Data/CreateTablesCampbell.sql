@@ -61,6 +61,8 @@ create table Team (
 );
 
 
+select * from Team
+
 
 GO
 -- create tables for second iteration
