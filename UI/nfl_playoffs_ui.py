@@ -1,4 +1,5 @@
 import streamlit as st
+from pathlib import Path
 from get_teams_by_conference_division_ui import get_teams_by_conference_division_ui
 from get_teams_in_same_conference_division_as_specified_team_ui import get_teams_in_same_conference_division_as_specified_team_ui
 from validate_user_ui import validate_user_ui
@@ -6,10 +7,9 @@ from get_teams_for_specified_fan_ui import get_teams_for_specified_fan_ui
 from get_teams_by_colors_ui import get_teams_by_colors_ui
 from schedule_game_ui import schedule_game_ui
 
-#st.image("vintage_nfl.png", width=300)
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    st.image("vintage_nfl.png", width=250)
+    st.image(str(Path(__file__).parent / "vintage_nfl.png"), width=250)
 
 
 st.title("NFL Playoffs App")
