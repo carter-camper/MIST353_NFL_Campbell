@@ -9,7 +9,7 @@ def fetch_data(endpoint: str, input_params: dict, method: str = "GET"):
     if method == "GET":
         response = requests.get(f"{FASTAPI_URL}/{endpoint}", params=input_params)
     elif method == "POST":
-        response = requests.post(f"{FASTAPI_URL}/{endpoint}", json=input_params)
+        response = requests.post(f"{FASTAPI_URL}/{endpoint}", params=input_params)
 
     if response.status_code == 200:
         payload = response.json()
