@@ -6,6 +6,7 @@ from validate_user_ui import validate_user_ui
 from get_teams_for_specified_fan_ui import get_teams_for_specified_fan_ui
 from get_teams_by_colors_ui import get_teams_by_colors_ui
 from schedule_game_ui import schedule_game_ui
+from get_all_changes_made_by_specified_admin_ui import get_all_changes_made_by_specified_admin_ui
 
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
@@ -27,7 +28,8 @@ with st.sidebar:
       "Validate User",
       "Get Teams for Specified Fan",
       "Get Teams by Color",
-      "Schedule Game"
+      "Schedule Game",
+      "Get All Changes Made by Specified Admin"
       ]
   )
 
@@ -47,7 +49,20 @@ elif api_endpoint == "Get Teams by Color":
    get_teams_by_colors_ui()
 
 elif api_endpoint == "Schedule Game":
-   schedule_game_ui()
+     if "app_user_id" not in st.session_state:
+           st.warning("Please log in to access the Schedule a Game functionality.")
+     elif st.session_state.app_user_role != "NFLAdmin":
+           st.warning("Only users with the NFL Admin role can access the Schedule a Game functionality.")
+     else:
+          schedule_game_ui()
+
+elif api_endpoint == "Get All Changes Made by Specified Admin":
+     if "app_user_id" not in st.session_state:
+           st.warning("Please log in to access this functionality.")
+     elif st.session_state.app_user_role != "NFLAdmin":
+           st.warning("Only users with the NFL Admin role can access this functionality.")
+     else:
+          get_all_changes_made_by_specified_admin_ui()
 
 # import streamlit as st
 # from pathlib import Path
