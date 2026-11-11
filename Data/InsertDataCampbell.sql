@@ -10,8 +10,8 @@ VALUES
 ('AFC','West'),
 ('NFC','North'),
 ('NFC','East'),
-('NFC','South'),
-('NFC','West');
+('NFC','West'),
+('NFC','South');
 
 
 

@@ -330,3 +330,9 @@ end
 -- execute procGetAllChangesMadeBySpecifiedAdmin @NFLAdminID = 8; -- Bill Belichick
 
 -- select * from Game;
+
+-- SELECT * FROM ConferenceDivision WHERE CDID IN (7, 8);
+
+UPDATE ConferenceDivision
+SET Division = CASE CDID WHEN 7 THEN 'West' WHEN 8 THEN 'South' END
+WHERE CDID IN (7, 8);

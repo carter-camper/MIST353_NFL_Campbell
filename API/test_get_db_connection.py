@@ -37,7 +37,7 @@ def test_get_db_connection():
 
   # Test 3: Connection is usable (run a simple query)
 
-  cursor = conn.cursor()
+  cursor = conn.cursor()        
 
   cursor.execute("SELECT 1")
 
