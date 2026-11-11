@@ -10,6 +10,8 @@ from get_all_stadiums import get_all_stadiums
 from get_all_teams import get_all_teams
 from get_all_changes_made_by_specified_admin import get_all_changes_made_by_specified_admin
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173"], allow_methods=["*"], allow_headers=["*"])
 
 
 
